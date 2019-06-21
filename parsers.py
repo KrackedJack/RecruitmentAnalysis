@@ -1,15 +1,15 @@
-def parse_docx(file, i):
-	import docx 
+import os
+
+def parse(file, i):
+	import textract as tx 
 	try:
-		doc = docx.Document(file)
-		with open('op\\' + str(i) + ".txt", "a", encoding="utf-8") as op:
-			for para in doc.paragraphs:
-				op.write(para.text + "\n")
-			for table in doc.tables:
-				for row in table.rows:
-				    for cell in row.cells:
-				        for paragraph in cell.paragraphs:
-				        	op.write(paragraph.text + "\n")
+		with open(os.path.join(os.getcwd(),os.path.join("op", str(i)+".txt")), "w", encoding="utf-8") as op:
+			txt = tx.process(file).decode('utf-8')
+			if (txt != ""):
+				op.write(txt)
+			else:
+				with open("err.txt", "a", encoding="utf-8") as op:
+					op.write("Empty: " + file + "\n")		
 		return True
 	except:
 		import traceback
@@ -18,14 +18,15 @@ def parse_docx(file, i):
 			op.write("Failed: " + file + "\n")
 
 def explore(dir):
-	import os
 	files = []
+	formats = ["csv", "doc", "docx", "eml", "epub", "gif", "htm", "html", "jpeg", "jpg", "json", "log", "mp3", "msg", "odt", "ogg", "pdf", "png", "pptx", "ps", "psv", "rtf", "tff", "tif", "tiff", "tsv", "txt", "wav", "xls", "xlsx"]
+
 	for f in os.listdir(dir):
-		if(os.path.isdir(dir + "\\" + f) and dir != "op" and dir[0] not in ["!","_"]):
-			files = files + explore(dir + "\\" + f)
-		elif(os.path.isfile(dir + "\\" + f)):
+		if(os.path.isdir(os.path.join(dir, f)) and dir != "op" and dir[0] not in ["!", "_", "."]):
+			files = files + explore(os.path.join(dir, f))
+		elif(os.path.isfile(os.path.join(dir, f)) and f.split('.')[-1] in formats):
 			print(f)
-			files.append(dir + "\\" + f)
+			files.append(os.path.join(dir, f))
 	return files
 
 if __name__ == '__main__':
