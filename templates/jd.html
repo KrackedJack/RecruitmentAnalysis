@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+{% block jd %}
+	<form method="POST" action="">
+		{{ form.hidden_tag() }}
+		<fieldset class="form-group">
+			<div class="form-group">
+				{{ form.jd.label(class="form-control-label") }}
+				{{ form.jd(class="form-control") }}
+			</div>
+		</fieldset>
+		<div class="form-group">
+			{{ form.submit(class="btn btn-dark") }}
+		</div>
+	</form>
+{% endblock jd %}
+{% block res %}
+	{% if results|length!=0 %}
+		<table class="table table-hover ">
+			<thead class="thead-dark">
+				<th scope="col">#</th>
+				<th scope="col">CV</th>
+				<th scope="col">Relevance Score</th>
+				<th scope="col">Link</th>
+			</thead>	
+			<tr>
+				{% for i in range((results['abc']|length) + 1) %}
+					<td >{{ results['abc'][i%3] }}</td>
+				{% endfor %}
+			</tr>
+		</table>
+	{% endif %}
+{% endblock res %}
