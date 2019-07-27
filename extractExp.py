@@ -54,9 +54,16 @@ def Exp(resume_path):
 		find_date1 = ["dec" if st == "decemb" else st for st in find_date1]
 	date_string = ' '.join(find_date1)		  	
 	matches = datefinder.find_dates(str(date_string))
-	dates_list = list(matches)    
+	dates_list = list(matches)
+	
+	for i in range(len(dates_list)):
+	dates_list[i] = dates_list[i].date()
+	
 	j = 0
 	total_days = 0
+	if len(dates_list) == 1:
+	dates_list.append(date.today())
+	
 	for i in dates_list:               
 		total_days = total_days + (dates_list[j+1] - dates_list[j]).days
 		j = j+2
