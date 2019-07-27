@@ -1,6 +1,7 @@
 from flask import Flask, render_template
 from forms import UploadJD
 import parsers as pr
+from run import run
 
 def gg(dic):
 	return {'abc':[1,2,3], 'xyz':2}
@@ -13,7 +14,7 @@ def upload():
 	form = UploadJD()
 	results = {}
 	if form.validate_on_submit():
-		results = gg(form.jd.data)
+		results = run(form.jd.data, pr.explore('corpus/tokenized/'))
 	return render_template("jd.html", form=form, results=results)
 
 if __name__ == '__main__':

@@ -1,6 +1,5 @@
 import os 
 import nltk
-import pandas as pd
 import parsers as pr
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
@@ -12,8 +11,6 @@ txt_dir = 'op/'
 tkn_dir = 'tokenized/'
 
 def prepare_corpus():
-	df = pd.read_csv('db.csv')
-	df.set_index('cid')
 	files = pr.explore(corpus_dir + txt_dir)
 	print("Files: {}".format(len(files)))
 
@@ -34,10 +31,6 @@ def prepare_corpus():
 
 			print("{}. {} - {}".format(i, cid[-1], tkns[-1]))
 			i = i + 1
-	df2 = pd.DataFrame({'cid':cid, 'tokens':tkns})
-	df2.set_index('cid')
-	df.join(df2, on='cid')
-	df.to_csv('db2.csv')
 
 if __name__ == '__main__':
 	prepare_corpus()

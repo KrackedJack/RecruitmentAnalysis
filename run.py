@@ -41,7 +41,7 @@ def run(jd,corpus):
 
 	df = pd.read_csv("db.csv")
 	response = {'cid':[], 'score':[], 'path':[]}
-	for i in range(21):
+	for i in range(20):
 		response['cid'].append(res[i][1])
 		response['score'].append(res[i][0])
 		response['path'].append(df[df['cid']==int(res[i][1])]['cv'].item())
