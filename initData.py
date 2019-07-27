@@ -9,12 +9,14 @@ def to_txt():
 	cv = []
 	cv_txt = []
 	cv_id = []
+	cv_exp = []
 	for f in files:
 		if(pr.parse(f, i) == 1): 
-			i += 1
 			cv_id.append(i)
 			cv.append(f)
 			cv_txt.append('corpus/op/' + str(i) + '.txt')
+			cv_exp.append(get_exp(f))
+			i += 1
 
 	d = {'cid':cv_id, 'cv':cv, 'txt':cv_txt}
 	df = pd.DataFrame(d)
