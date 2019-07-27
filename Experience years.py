@@ -54,17 +54,14 @@ def Exp(resume_path):
 		find_date1 = ["dec" if st == "decemb" else st for st in find_date1]
 	date_string = ' '.join(find_date1)		  	
 	matches = datefinder.find_dates(str(date_string))
-	dates_list = list(matches)
-
-	    
+	dates_list = list(matches)    
 	j = 0
 	total_days = 0
 	for i in dates_list:               
 		total_days = total_days + (dates_list[j+1] - dates_list[j]).days
 		j = j+2
 		if j > (len(dates_list)-1):
-			break
-		
+			break	
 	totalex = round((total_days/365),1)
 	return totalex
  	resume_path.close()
