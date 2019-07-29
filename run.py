@@ -7,7 +7,7 @@ import numpy as np
 import parsers as pr
 from scipy import spatial
 import pandas as pd
-
+import os 
 def run(jd,corpus):
 	model = Word2Vec.load('w2v_model')
 	w2v = []
@@ -43,8 +43,8 @@ def run(jd,corpus):
 	response = {'cid':[], 'score':[], 'path':[]}
 	for i in range(20):
 		response['cid'].append(res[i][1])
-		response['score'].append(res[i][0])
-		response['path'].append(df[df['cid']==int(res[i][1])]['cv'].item())
+		response['score'].append("{:.1f}".format(res[i][0]*100))
+		response['path'].append(df[df['cid']==int(res[i][1])]['cv'].values[0])
 
 	return response
 
